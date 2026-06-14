@@ -10,22 +10,37 @@ config_version=5
 
 [application]
 
-config/name="Street Dog Draft"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/name="Street Dog"
+config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 CatalystGameAgent="*uid://rrv6466l66bb"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_catalyst/plugin.cfg")
 
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="player"
+2d_physics/layer_3="enemies"
+2d_physics/layer_4="interactables"
+
 [physics]
 
-3d/physics_engine="Jolt Physics"
+2d/default_gravity=980.0
 
 [rendering]
 
-rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+textures/canvas_textures/default_texture_filter=0

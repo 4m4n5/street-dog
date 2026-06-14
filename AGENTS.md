@@ -1,58 +1,86 @@
 # Agent instructions — Street Dog
 
-Instructions for **any** AI coding agent (Cursor, Codex, Claude Code, Claude Desktop, Windsurf, Cline, Kiro, etc.) working on this repo.
+Instructions for **any** AI coding agent (Cursor, Codex, Claude Code, Claude Desktop, Windsurf, Cline, Kiro, etc.).
 
-Human setup: [`README.md`](README.md)
+Human setup & workflow: [`README.md`](README.md)
 
 ## Project
 
-- **Engine:** Godot 4.6, GDScript, Jolt Physics (3D), Forward+
-- **AI bridge:** Godot Catalyst MCP (`npx godot-catalyst`) + `addons/godot_catalyst` plugin
+- **2D game** — Godot 4.6, GDScript, GL Compatibility renderer
+- **Physics:** built-in 2D (`CharacterBody2D`, `Area2D`, `RayCast2D`)
+- **AI bridge:** Godot Catalyst MCP (`npx godot-catalyst`) + `addons/godot_catalyst`
+
+**Do not use 3D nodes** (`CharacterBody3D`, `MeshInstance3D`, `Camera3D`, etc.) unless the human explicitly asks.
 
 ## Before making changes
 
-1. Godot editor must be **open** on this project.
-2. **Godot Catalyst** plugin enabled (**Project → Plugins**).
-3. MCP client connected (Godot Catalyst panel shows **Connected** on port 6505).
-4. Use MCP tools to inspect scenes/nodes/errors — **do not invent node paths**.
+1. Godot editor **open** on this project (2D viewport).
+2. **Godot Catalyst** plugin enabled → panel **Connected** on port 6505.
+3. Use MCP to inspect scenes/nodes/errors — **never invent node paths**.
 
-## What agents should do
+## 2D node conventions
 
-| Do | Don't |
-|----|-------|
-| Use MCP to read scene tree, run game, capture errors/screenshots | Guess `res://` paths or node names |
-| Write Godot **4.x** GDScript (`@export`, `await`, signals) | Use Godot 3 syntax (`yield`, `setget`, bare `export`) |
-| Make small, testable changes per task | Try to one-shot an entire game |
-| Run play → read errors → fix → re-run | Edit `.godot/` cache (gitignored) |
+| Purpose | Node |
+|---------|------|
+| Player / NPC movement | `CharacterBody2D` + `CollisionShape2D` |
+| Visuals | `Sprite2D` or `AnimatedSprite2D` |
+| Camera | `Camera2D` (enable position smoothing as needed) |
+| Triggers / pickups | `Area2D` |
+| Ground / walls (tile-based) | `TileMapLayer` (Godot 4.x) |
+| Parallax backgrounds | `Parallax2D` |
+| UI | `CanvasLayer` → `Control` nodes |
+
+**2D physics layers:** `world` (1), `player` (2), `enemies` (3), `interactables` (4).
 
 ## GDScript (Godot 4)
 
 ```gdscript
-# Good
-@export var speed: float = 5.0
-@onready var mesh: MeshInstance3D = $MeshInstance3D
+extends CharacterBody2D
+
+@export var speed: float = 200.0
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _physics_process(delta: float) -> void:
-    await get_tree().process_frame
+    var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+    velocity = direction * speed
+    move_and_slide()
 ```
 
-## MCP capabilities (Godot Catalyst)
+No Godot 3 syntax: no `yield`, `setget`, or bare `export`.
 
-Scenes, nodes, scripts, resources, 2D/3D objects, animation, audio, physics, navigation, play/stop, input simulation, screenshots, LSP diagnostics, DAP debugging, CC0 asset search (Kenney, Poly Haven, AmbientCG).
+## MCP — what to use
 
-Set `GODOT_TOOL_MODE=lite` if the client struggles with ~240 tools.
+Prefer MCP tools over file guessing:
 
-## Conventions
+| Task | Approach |
+|------|----------|
+| Scene structure | MCP scene/node tools |
+| Run + debug | MCP play/stop + read output/screenshots |
+| Tilemaps | MCP tilemap tools |
+| Sprites / collision | MCP 2D manipulation tools |
+| Asset blockout | MCP CC0 search (Kenney packs) |
+| Code quality | MCP LSP diagnostics |
 
-- Scenes in `scenes/`, scripts in `scripts/`, assets in `assets/`
-- Typed GDScript where it helps readability
-- Prefer `CharacterBody3D` for player movement (Jolt is configured)
-- Commit scenes, scripts, and assets — never `.godot/`
+`GODOT_TOOL_MODE=lite` if ~240 tools overwhelms the client.
+
+## File layout
+
+- `scenes/` — `.tscn` files
+- `scripts/` — `.gd` files
+- `assets/sprites/`, `assets/tilesets/`, `assets/audio/`
+
+## Do / Don't
+
+| Do | Don't |
+|----|-------|
+| Small, testable changes | One-shot entire game |
+| `move_and_slide()` for kinematic 2D bodies | Mix 3D nodes into 2D scenes |
+| Verify paths via MCP | Edit `.godot/` cache |
+| Run → fix errors → re-run | Guess collision layer masks |
 
 ## Testing loop
 
-1. Run project (MCP or F5 in editor)
-2. Read console / debugger output via MCP
-3. Fix scripts or scene issues
-4. Re-run until clean
-5. Human playtests for game feel
+1. Run (MCP or F5)
+2. Read errors via MCP
+3. Fix and re-run
+4. Human playtests feel
