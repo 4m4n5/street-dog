@@ -1,0 +1,16 @@
+# Godot 4+
+.godot/
+.import/
+*.translation
+
+# Export (uncomment if you store secrets in export presets)
+# export_presets.cfg
+
+# OS / editor
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Android
+/android/

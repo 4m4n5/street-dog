@@ -1,0 +1,8 @@
+{
+  "godotTools.editorPath.godot4": "/Applications/Godot.app/Contents/MacOS/Godot",
+  "godotTools.lsp.serverPort": 6005,
+  "editor.formatOnSave": true,
+  "files.exclude": {
+    "**/.godot": true
+  }
+}

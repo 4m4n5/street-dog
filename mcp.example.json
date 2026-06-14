@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "godot": {
+      "command": "npx",
+      "args": ["-y", "godot-catalyst"],
+      "env": {
+        "GODOT_PROJECT_PATH": "/absolute/path/to/street-dog",
+        "GODOT_PATH": "/Applications/Godot.app/Contents/MacOS/Godot",
+        "GODOT_TOOL_MODE": "full"
+      }
+    }
+  }
+}
