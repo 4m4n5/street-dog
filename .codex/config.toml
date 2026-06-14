@@ -1,0 +1,21 @@
+# Codex MCP for this repo.
+#
+# Codex Desktop often ignores project-local MCP unless ALSO registered globally.
+# From repo root, run once per machine:
+#
+#   codex mcp add godot \
+#     --env GODOT_PATH=/Applications/Godot.app/Contents/MacOS/Godot \
+#     -- "$(pwd)/scripts/mcp/godot-catalyst.sh"
+#
+# Trust this repo in ~/.codex/config.toml:
+#
+#   [projects."/absolute/path/to/street-dog"]
+#   trust_level = "trusted"
+#
+# Verify: codex mcp list   (should show "godot" enabled)
+# Reload VS Code / Codex sidebar after changes.
+
+[mcp_servers.godot]
+enabled = true
+command = "scripts/mcp/godot-catalyst.sh"
+args = []

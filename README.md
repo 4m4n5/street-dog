@@ -121,11 +121,44 @@ Copy [`mcp.example.json`](mcp.example.json) and set absolute paths:
 
 | Client | Config |
 |--------|--------|
-| Cursor | `.cursor/mcp.json` |
+| **Cursor** | `.cursor/mcp.json` (workspace) or project settings |
+| **Codex** | **Global required** — see [Codex setup](#codex-setup) below |
 | Claude Desktop | `~/Library/Application Support/Claude/claude_desktop_config.json` |
-| Claude Code | `claude mcp add godot -e GODOT_PROJECT_PATH=... -- npx -y godot-catalyst` |
-| Codex | `codex mcp add godot -e GODOT_PROJECT_PATH=... -- npx -y godot-catalyst` |
-| Windsurf / Cline / Kiro | Same JSON shape in client MCP settings |
+| Claude Code | `claude mcp add godot -- "$(pwd)/scripts/mcp/godot-catalyst.sh"` |
+| Windsurf / Cline / Kiro | Same JSON shape as `mcp.example.json` |
+
+Or use the repo launcher (sets `GODOT_PROJECT_PATH` automatically):
+
+```bash
+./scripts/mcp/godot-catalyst.sh
+```
+
+### Codex setup
+
+Codex **does not load** workspace-parent MCP config when you open this repo directly. Project `.codex/config.toml` is only merged for **trusted** repos, and Codex Desktop often still needs a **global** registration.
+
+**One-time per machine** (from repo root, Godot open):
+
+```bash
+# 1. Trust this repo (~/.codex/config.toml)
+cat >> ~/.codex/config.toml <<EOF
+
+[projects."$(pwd)"]
+trust_level = "trusted"
+EOF
+
+# 2. Register godot MCP globally
+codex mcp add godot \
+  --env GODOT_PATH=/Applications/Godot.app/Contents/MacOS/Godot \
+  -- "$(pwd)/scripts/mcp/godot-catalyst.sh"
+
+# 3. Verify
+codex mcp list    # should show: godot … enabled
+```
+
+Then **reload VS Code** (or restart the Codex sidebar). New threads should expose `mcp__godot__*` tools.
+
+**Troubleshooting:** If Codex says MCP tools are unavailable, run `codex doctor` — `MCP servers` should be `≥ 1`. Godot Catalyst panel must show **Connected** (port 6505).
 
 ### Recommended Godot editor settings
 
