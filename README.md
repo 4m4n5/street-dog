@@ -135,30 +135,47 @@ Or use the repo launcher (sets `GODOT_PROJECT_PATH` automatically):
 
 ### Codex setup
 
-Codex **does not load** workspace-parent MCP config when you open this repo directly. Project `.codex/config.toml` is only merged for **trusted** repos, and Codex Desktop often still needs a **global** registration.
+Codex reads **`~/.codex/config.toml`** globally. **Do not** put `[mcp_servers]` in this repo's `.codex/config.toml` with a relative command — it overrides the global config and breaks the VS Code extension (Codex spawns MCP from a different cwd).
 
 **One-time per machine** (from repo root, Godot open):
 
 ```bash
-# 1. Trust this repo (~/.codex/config.toml)
-cat >> ~/.codex/config.toml <<EOF
-
-[projects."$(pwd)"]
-trust_level = "trusted"
-EOF
-
-# 2. Register godot MCP globally
+codex mcp remove godot 2>/dev/null
 codex mcp add godot \
   --env GODOT_PATH=/Applications/Godot.app/Contents/MacOS/Godot \
   -- "$(pwd)/scripts/mcp/godot-catalyst.sh"
 
-# 3. Verify
-codex mcp list    # should show: godot … enabled
+# Verify the command is an ABSOLUTE path (not scripts/mcp/...)
+codex mcp get godot
 ```
 
-Then **reload VS Code** (or restart the Codex sidebar). New threads should expose `mcp__godot__*` tools.
+Trust entry in `~/.codex/config.toml`:
 
-**Troubleshooting:** If Codex says MCP tools are unavailable, run `codex doctor` — `MCP servers` should be `≥ 1`. Godot Catalyst panel must show **Connected** (port 6505).
+```toml
+[projects."/absolute/path/to/street-dog"]
+trust_level = "trusted"
+
+[mcp_servers.godot]
+enabled = true
+command = "/absolute/path/to/street-dog/scripts/mcp/godot-catalyst.sh"
+startup_timeout_sec = 60
+
+[mcp_servers.godot.env]
+GODOT_PATH = "/Applications/Godot.app/Contents/MacOS/Godot"
+```
+
+**After changes:** fully **quit and reopen** VS Code/Cursor (reload window is often not enough). Start a **new** Codex thread. Tools appear as `mcp__godot__*`.
+
+In a Codex session, run `/mcp` to confirm `godot` is connected with tools listed.
+
+**Troubleshooting**
+
+| Symptom | Fix |
+|---------|-----|
+| `codex mcp get godot` shows relative `scripts/mcp/...` | Remove `[mcp_servers]` from repo `.codex/config.toml`; re-run `codex mcp add` |
+| `codex doctor` shows MCP servers `0` | Re-run `codex mcp add` above |
+| Godot Connected but Codex has no tools | Quit VS Code completely; new Codex thread |
+| MCP starts but 0 tools | Godot editor must be open; plugin enabled on :6505 |
 
 ### Recommended Godot editor settings
 
