@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+const GameSfxScript = preload("res://scripts/audio/game_sfx.gd")
+
 ## Mumbai street threat — patrols footpath, telegraphed swipe, takes bites.
 
 enum State { PATROL, WINDUP, ATTACK, RECOVER, STAGGER, DEAD }
@@ -28,9 +30,11 @@ var _patrol_origin := Vector2.ZERO
 var _knockback_velocity := Vector2.ZERO
 var _attack_hit_player := false
 var _player: CharacterBody2D
+var _sfx: GameSfxScript
 
 
 func _ready() -> void:
+	_sfx = GameSfxScript.instance()
 	add_to_group("enemy")
 	_health = max_health
 	_patrol_origin = global_position
@@ -83,7 +87,7 @@ func _apply_state(delta: float) -> void:
 			_tick_state(State.PATROL, 0)
 
 
-func _patrol(delta: float) -> void:
+func _patrol(_delta: float) -> void:
 	if _player != null and is_instance_valid(_player):
 		var to_player := _player.global_position - global_position
 		if absf(to_player.x) <= detection_range and absf(to_player.y) < 48.0:
@@ -156,7 +160,7 @@ func take_hit(knockback: Vector2, _hit_stop: bool) -> void:
 	_health -= 1
 	_knockback_velocity = knockback
 	_flash_hit()
-	GameSfx.play_hit()
+	_sfx.play_hit()
 
 	if _health <= 0:
 		_die()
@@ -211,7 +215,7 @@ func _die() -> void:
 	collision_layer = 0
 	$CollisionShape2D.set_deferred("disabled", true)
 	_hurtbox.set_deferred("monitoring", false)
-	GameSfx.play_enemy_defeat()
+	_sfx.play_enemy_defeat()
 	var tween := create_tween()
 	tween.tween_property(_visual, "modulate:a", 0.0, 0.2)
 	tween.parallel().tween_property(_visual, "scale", Vector2(0.4, 1.2), 0.2)

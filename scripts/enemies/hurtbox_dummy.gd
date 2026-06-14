@@ -1,6 +1,8 @@
 extends StaticBody2D
 class_name HurtboxDummy
 
+const GameSfxScript = preload("res://scripts/audio/game_sfx.gd")
+
 ## Solid Mumbai street prop — blocks the player, takes bites, breaks after max_hits.
 
 enum PropStyle { CRATE, SACK, CONE, BIN }
@@ -19,9 +21,11 @@ var _hits_remaining: int = 5
 var _knockback_velocity := Vector2.ZERO
 var _flash_tween: Tween
 var _destroying := false
+var _sfx: GameSfxScript
 
 
 func _ready() -> void:
+	_sfx = GameSfxScript.instance()
 	add_to_group("enemy")
 	_hits_remaining = max_hits
 	_apply_style()
@@ -46,7 +50,7 @@ func take_hit(knockback: Vector2, _hit_stop: bool) -> void:
 	_flash()
 	_shake_visual()
 	_update_damage_visual()
-	GameSfx.play_hit()
+	_sfx.play_hit()
 
 	if _hits_remaining <= 0:
 		_destroy()
@@ -115,7 +119,7 @@ func _shake_visual() -> void:
 
 func _destroy() -> void:
 	_destroying = true
-	GameSfx.play_prop_break()
+	_sfx.play_prop_break()
 	collision_layer = 0
 	$BodyCollider.set_deferred("disabled", true)
 	$Hurtbox.set_deferred("monitoring", false)

@@ -1,9 +1,17 @@
 extends Node
+class_name GameSfxManager
 
 ## Procedural blockout SFX — replace clips in assets/audio/ when art pass lands.
 
 var _players: Array[AudioStreamPlayer] = []
 var _next_player := 0
+
+
+static func instance() -> GameSfxManager:
+	var tree := Engine.get_main_loop()
+	if tree is SceneTree:
+		return (tree as SceneTree).root.get_node(^"GameSfx") as GameSfxManager
+	return null
 
 
 func _ready() -> void:

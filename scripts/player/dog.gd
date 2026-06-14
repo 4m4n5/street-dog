@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 const PlayerConstants = preload("res://scripts/player/player_constants.gd")
 const PlayerHealthScript = preload("res://scripts/player/player_health.gd")
+const GameSfxScript = preload("res://scripts/audio/game_sfx.gd")
 
 enum State {
 	MOVE,
@@ -56,9 +57,11 @@ var _head_base_position := Vector2.ZERO
 var _snout_base_position := Vector2.ZERO
 var _pose_tween: Tween
 var _respawning := false
+var _sfx: GameSfxScript
 
 
 func _ready() -> void:
+	_sfx = GameSfxScript.instance()
 	_head_base_position = _head.position
 	_snout_base_position = _snout.position
 	if _attack_hitbox != null:
@@ -92,7 +95,7 @@ func _physics_process(delta: float) -> void:
 
 	if not was_on_floor and is_on_floor() and _state == State.MOVE:
 		_play_land_squash()
-		GameSfx.play_land()
+		_sfx.play_land()
 
 
 func _update_jump_timers(delta: float) -> void:
@@ -135,7 +138,7 @@ func _try_consume_jump() -> void:
 	velocity.y = jump_velocity
 	_jump_buffer_timer = 0.0
 	_coyote_timer = 0.0
-	GameSfx.play_jump()
+	_sfx.play_jump()
 
 
 func _apply_horizontal_input(delta: float, speed_mult: float, allow_facing_update: bool) -> void:
@@ -226,13 +229,13 @@ func receive_enemy_hit(damage: int, knockback: Vector2, attacker: Node) -> void:
 	if _health == null or not _health.take_damage(damage):
 		return
 
-	GameSfx.play_hurt()
+	_sfx.play_hurt()
 	_invuln_timer = invuln_time
 	_enter_hitstun(knockback)
 
 
 func _resolve_parry(attacker: Node) -> void:
-	GameSfx.play_parry()
+	_sfx.play_parry()
 	_start_hit_stop()
 	if attacker != null and attacker.has_method("on_parried"):
 		attacker.call("on_parried")
@@ -271,7 +274,7 @@ func _enter_attack_active() -> void:
 	_state_frames_left = attack_active_frames
 	_set_hitbox_enabled(true)
 	_play_attack_pose(Vector2(1.15, 0.92), 0.025, 10.0)
-	GameSfx.play_bite()
+	_sfx.play_bite()
 
 
 func _enter_attack_recovery() -> void:
