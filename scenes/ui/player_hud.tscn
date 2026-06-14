@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/player_hud.gd" id="1"]
+
+[node name="PlayerHud" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1")
+
+[node name="Margin" type="MarginContainer" parent="."]
+offset_right = 280.0
+offset_bottom = 56.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 14
+
+[node name="Panel" type="PanelContainer" parent="Margin"]
+
+[node name="VBox" type="VBoxContainer" parent="Margin/Panel"]
+theme_override_constants/separation = 4
+
+[node name="HpLabel" type="Label" parent="Margin/Panel/VBox"]
+text = "HP 5 / 5"
+
+[node name="HpBar" type="Control" parent="Margin/Panel/VBox"]
+custom_minimum_size = Vector2(200, 12)
+
+[node name="Bg" type="ColorRect" parent="Margin/Panel/VBox/HpBar"]
+offset_right = 200.0
+offset_bottom = 12.0
+color = Color(0.08, 0.09, 0.11, 0.88)
+
+[node name="Fill" type="ColorRect" parent="Margin/Panel/VBox/HpBar"]
+offset_right = 200.0
+offset_bottom = 12.0
+color = Color(0.35, 0.78, 0.48, 1)

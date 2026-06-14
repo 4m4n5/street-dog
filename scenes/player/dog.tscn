@@ -1,0 +1,121 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/player/dog.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/player/player_health.gd" id="2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(38, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_attack"]
+size = Vector2(48, 28)
+
+[node name="Dog" type="CharacterBody2D" groups=["player"]]
+z_index = 30
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1")
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Shadow" type="ColorRect" parent="Visual"]
+offset_left = -20.0
+offset_top = 10.0
+offset_right = 20.0
+offset_bottom = 16.0
+color = Color(0, 0, 0, 0.35)
+
+[node name="Body" type="ColorRect" parent="Visual"]
+offset_left = -18.0
+offset_top = -6.0
+offset_right = 14.0
+offset_bottom = 12.0
+color = Color(0.45, 0.32, 0.18, 1)
+
+[node name="Head" type="ColorRect" parent="Visual"]
+offset_left = 10.0
+offset_top = -10.0
+offset_right = 26.0
+offset_bottom = 6.0
+color = Color(0.5, 0.36, 0.2, 1)
+
+[node name="EarBack" type="ColorRect" parent="Visual"]
+offset_left = 14.0
+offset_top = -16.0
+offset_right = 22.0
+offset_bottom = -8.0
+color = Color(0.38, 0.26, 0.14, 1)
+
+[node name="EarFront" type="ColorRect" parent="Visual"]
+offset_left = 20.0
+offset_top = -14.0
+offset_right = 28.0
+offset_bottom = -6.0
+color = Color(0.42, 0.3, 0.16, 1)
+
+[node name="Snout" type="ColorRect" parent="Visual"]
+offset_left = 24.0
+offset_top = -2.0
+offset_right = 32.0
+offset_bottom = 4.0
+color = Color(0.58, 0.42, 0.28, 1)
+
+[node name="LegFront" type="ColorRect" parent="Visual"]
+offset_left = 6.0
+offset_top = 10.0
+offset_right = 12.0
+offset_bottom = 18.0
+color = Color(0.35, 0.24, 0.12, 1)
+
+[node name="LegBack" type="ColorRect" parent="Visual"]
+offset_left = -10.0
+offset_top = 10.0
+offset_right = -4.0
+offset_bottom = 18.0
+color = Color(0.35, 0.24, 0.12, 1)
+
+[node name="Tail" type="ColorRect" parent="Visual"]
+offset_left = -24.0
+offset_top = -8.0
+offset_right = -14.0
+offset_bottom = -2.0
+color = Color(0.42, 0.3, 0.16, 1)
+
+[node name="Eye" type="ColorRect" parent="Visual"]
+offset_left = 18.0
+offset_top = -6.0
+offset_right = 21.0
+offset_bottom = -3.0
+color = Color(0.95, 0.9, 0.75, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="AttackHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+position = Vector2(24, 0)
+shape = SubResource("RectangleShape2D_attack")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -48)
+zoom = Vector2(1.08, 1.08)
+position_smoothing_enabled = true
+position_smoothing_speed = 7.5
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.18
+drag_right_margin = 0.18
+drag_top_margin = 0.12
+drag_bottom_margin = 0.08
+limit_left = 0
+limit_top = -120
+limit_right = 2800
+limit_bottom = 720
+
+[node name="PlayerHealth" type="Node" parent="."]
+script = ExtResource("2")
