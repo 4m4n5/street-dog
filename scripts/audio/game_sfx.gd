@@ -26,6 +26,10 @@ func play_bite() -> void:
 	_play_tone(180.0, 0.07, 0.28, true)
 
 
+func play_bite_whiff() -> void:
+	_play_tone(150.0, 0.045, 0.12, false)
+
+
 func play_hit() -> void:
 	_play_tone(95.0, 0.09, 0.34, false)
 
