@@ -1,0 +1,29 @@
+[gd_scene format=3]
+
+[node name="EncounterClearTopdown" type="CanvasLayer"]
+layer = 30
+visible = false
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Root"]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 102.0
+offset_right = 774.0
+offset_bottom = 140.0
+theme_override_colors/font_color = Color(0.95, 0.72, 0.36, 0.94)
+theme_override_colors/font_shadow_color = Color(0.02, 0.018, 0.015, 0.88)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 30
+text = "gully clear"
+horizontal_alignment = 1
+vertical_alignment = 1

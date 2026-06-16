@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/topdown/props/prop_plastic_chair.gd" id="1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chair"]
+size = Vector2(34, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_stagger"]
+size = Vector2(46, 40)
+
+[node name="PlasticChair" type="StaticBody2D" groups=["interactable_prop"]]
+collision_layer = 9
+collision_mask = 0
+script = ExtResource("1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_chair")
+
+[node name="StaggerArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaggerArea"]
+disabled = true
+shape = SubResource("RectangleShape2D_stagger")
+
+[node name="Back" type="ColorRect" parent="."]
+offset_left = -18.0
+offset_top = -18.0
+offset_right = 18.0
+offset_bottom = -8.0
+color = Color(0.32, 0.46, 0.56, 1)
+
+[node name="Seat" type="ColorRect" parent="."]
+offset_left = -16.0
+offset_top = -8.0
+offset_right = 16.0
+offset_bottom = 12.0
+color = Color(0.42, 0.62, 0.72, 1)
+
+[node name="LegL" type="ColorRect" parent="."]
+offset_left = -15.0
+offset_top = 12.0
+offset_right = -10.0
+offset_bottom = 20.0
+color = Color(0.28, 0.40, 0.48, 1)
+
+[node name="LegR" type="ColorRect" parent="."]
+offset_left = 10.0
+offset_top = 12.0
+offset_right = 15.0
+offset_bottom = 20.0
+color = Color(0.28, 0.40, 0.48, 1)

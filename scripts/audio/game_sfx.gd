@@ -51,6 +51,11 @@ func play_enemy_defeat() -> void:
 	_play_tone(110.0, 0.16, 0.3, false)
 
 
+func play_gully_clear() -> void:
+	_play_tone(260.0, 0.08, 0.20, true)
+	_play_tone(390.0, 0.10, 0.16, true)
+
+
 func play_jump() -> void:
 	_play_tone(260.0, 0.05, 0.14, true)
 
