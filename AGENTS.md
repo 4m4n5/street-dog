@@ -18,6 +18,7 @@ Human setup & workflow: [`README.md`](README.md)
 2. **Godot Catalyst** plugin enabled → panel **Connected** on port 6505.
 3. **Codex:** `codex mcp list` must show `godot` enabled (see README → Codex setup).
 4. Use MCP to inspect scenes/nodes/errors — **never invent node paths**.
+5. **Top-down combat / level design / feel:** invoke `$topdown-combat-expert` (reads `~/.cursor/skills/topdown-combat-expert/`).
 
 ## 2D node conventions
 
