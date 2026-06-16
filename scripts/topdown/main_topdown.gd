@@ -14,7 +14,7 @@ func _ready() -> void:
 
 
 func _apply_shared_tuning() -> void:
-	var arena := $ArenaMumbaiGully
+	var arena := _get_topdown_arena()
 	if arena != null and arena.get("tuning") != null:
 		arena.tuning = tuning
 
@@ -31,3 +31,14 @@ func _apply_shared_tuning() -> void:
 
 	if arena != null and arena.has_method("sync_rival_tuning"):
 		arena.call("sync_rival_tuning")
+	if arena != null and arena.has_method("apply_player_camera_bounds"):
+		arena.call("apply_player_camera_bounds")
+
+
+func _get_topdown_arena() -> Node:
+	var arena := get_node_or_null("StreetSegmentGully01")
+	if arena == null:
+		arena = get_node_or_null("ArenaMumbaiGully")
+	if arena == null:
+		arena = get_tree().get_first_node_in_group("topdown_arena")
+	return arena

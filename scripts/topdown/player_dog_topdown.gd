@@ -39,6 +39,7 @@ var _windup_telegraph: Polygon2D
 var _snout_flash_tween: Tween
 var _camera_nudge_tween: Tween
 var _camera_rest_offset := Vector2.ZERO
+var _camera_bounds := Rect2(Vector2.ZERO, Vector2.ZERO)
 
 
 func _ready() -> void:
@@ -89,6 +90,11 @@ func _exit_tree() -> void:
 
 func get_facing_direction() -> Vector2:
 	return _facing_direction
+
+
+func set_camera_bounds(bounds: Rect2) -> void:
+	_camera_bounds = bounds
+	call_deferred("_configure_camera_limits")
 
 
 func receive_enemy_hit(damage: int, knockback: Vector2, attacker: Node = null) -> bool:
@@ -291,10 +297,13 @@ func _configure_camera_limits() -> void:
 		return
 	var viewport_size := get_viewport().get_visible_rect().size
 	var half := viewport_size * 0.5
-	_camera.limit_left = int(half.x)
-	_camera.limit_top = int(half.y)
-	_camera.limit_right = int(tuning.arena_width - half.x)
-	_camera.limit_bottom = int(tuning.arena_height - half.y)
+	var bounds := _camera_bounds
+	if bounds.size == Vector2.ZERO:
+		bounds = Rect2(Vector2.ZERO, Vector2(tuning.arena_width, tuning.arena_height))
+	_camera.limit_left = int(bounds.position.x)
+	_camera.limit_top = int(bounds.position.y)
+	_camera.limit_right = int(bounds.position.x + maxf(bounds.size.x, half.x * 2.0))
+	_camera.limit_bottom = int(bounds.position.y + maxf(bounds.size.y, half.y * 2.0))
 	_camera.limit_smoothed = true
 
 

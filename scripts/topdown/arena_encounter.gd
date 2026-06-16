@@ -3,7 +3,7 @@ extends Node
 const GameSfxScript := preload("res://scripts/audio/game_sfx.gd")
 const DEFAULT_CLEAR_UI := preload("res://scenes/topdown/ui/encounter_clear_topdown.tscn")
 
-@export var arena_path: NodePath = ^"../ArenaMumbaiGully"
+@export var arena_path: NodePath = ^"../StreetSegmentGully01"
 @export var clear_ui_scene: PackedScene = DEFAULT_CLEAR_UI
 @export var clear_label_sec: float = 1.5
 @export var respawn_delay_sec: float = 2.0
@@ -32,6 +32,8 @@ func _process(_delta: float) -> void:
 
 func _bind() -> void:
 	_arena = get_node_or_null(arena_path)
+	if _arena == null:
+		_arena = get_tree().get_first_node_in_group("topdown_arena")
 	_ensure_clear_ui()
 
 
