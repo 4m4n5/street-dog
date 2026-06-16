@@ -1,44 +1,44 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3 uid="uid://b7ufirir3jqr7"]
 
-[ext_resource type="Script" path="res://scripts/topdown/arena_mumbai_gully.gd" id="1"]
-[ext_resource type="Resource" path="res://resources/topdown/default_tuning.tres" id="2"]
+[ext_resource type="Script" uid="uid://c7vq0le6s1cmj" path="res://scripts/topdown/arena_mumbai_gully.gd" id="1"]
+[ext_resource type="Resource" uid="uid://hjy0o3qf2kim" path="res://resources/topdown/default_tuning.tres" id="2"]
 
-[node name="ArenaMumbaiGully" type="Node2D"]
+[node name="ArenaMumbaiGully" type="Node2D" unique_id=1082757789]
 script = ExtResource("1")
 tuning = ExtResource("2")
 
-[node name="Surface" type="Node2D" parent="."]
+[node name="Surface" type="Node2D" parent="." unique_id=484353759]
 z_index = -20
 
-[node name="Walls" type="Node2D" parent="."]
+[node name="Walls" type="Node2D" parent="." unique_id=420270437]
 z_index = 10
 
-[node name="Dressing" type="Node2D" parent="."]
+[node name="Dressing" type="Node2D" parent="." unique_id=1878196790]
 
-[node name="Props" type="Node2D" parent="."]
+[node name="Props" type="Node2D" parent="." unique_id=1638369793]
 z_index = 5
 
-[node name="Spawns" type="Node2D" parent="."]
+[node name="Spawns" type="Node2D" parent="." unique_id=412523532]
 
-[node name="Spawn" type="Marker2D" parent="Spawns"]
+[node name="Spawn" type="Marker2D" parent="Spawns" unique_id=336871713]
 position = Vector2(148, 532)
 
-[node name="RivalSpawn_Stray" type="Marker2D" parent="Spawns"]
+[node name="RivalSpawn_Stray" type="Marker2D" parent="Spawns" unique_id=389114161]
 position = Vector2(592, 486)
 
-[node name="RivalSpawn_Sentry" type="Marker2D" parent="Spawns"]
+[node name="RivalSpawn_Sentry" type="Marker2D" parent="Spawns" unique_id=864324407]
 position = Vector2(704, 286)
 
-[node name="RivalSpawn_Racer" type="Marker2D" parent="Spawns"]
+[node name="RivalSpawn_Racer" type="Marker2D" parent="Spawns" unique_id=918834748]
 position = Vector2(1084, 562)
 
-[node name="RivalSpawn_Bully" type="Marker2D" parent="Spawns"]
+[node name="RivalSpawn_Bully" type="Marker2D" parent="Spawns" unique_id=862559198]
 position = Vector2(1118, 306)
 
-[node name="RivalSpawn_A" type="Marker2D" parent="Spawns"]
+[node name="RivalSpawn_A" type="Marker2D" parent="Spawns" unique_id=31709487]
 position = Vector2(592, 486)
 
-[node name="RivalSpawn_B" type="Marker2D" parent="Spawns"]
+[node name="RivalSpawn_B" type="Marker2D" parent="Spawns" unique_id=845825036]
 position = Vector2(1118, 306)
 
-[node name="Rivals" type="Node2D" parent="."]
+[node name="Rivals" type="Node2D" parent="." unique_id=1173652704]

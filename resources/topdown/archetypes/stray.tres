@@ -1,17 +1,11 @@
-[gd_resource type="Resource" script_class="RivalArchetype" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="RivalArchetype" format=3 uid="uid://8ngsi5ei6wwn"]
 
-[ext_resource type="Script" path="res://scripts/topdown/rival_archetype.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/topdown/bite_attack_profile.gd" id="2"]
+[ext_resource type="Script" uid="uid://7dd0fbydv6s" path="res://scripts/topdown/rival_archetype.gd" id="1"]
+[ext_resource type="Script" uid="uid://cb4a1x3rb46if" path="res://scripts/topdown/bite_attack_profile.gd" id="2"]
 
 [sub_resource type="Resource" id="Resource_bite_stray"]
 script = ExtResource("2")
-startup_frames = 3
-active_frames = 3
-recovery_frames = 12
-recovery_move_unlock = 8
 startup_speed_mult = 0.36
-lunge_speed = 500.0
-hitbox_offset = 34.0
 hitbox_size = Vector2(46, 34)
 knockback_target = 145.0
 self_knockback = 20.0
@@ -21,13 +15,8 @@ telegraph_color = Color(1, 0.38, 0.18, 0.74)
 
 [resource]
 script = ExtResource("1")
-id = &"stray"
-display_name = "Stray"
-ai_role = &"patrol"
-max_hp = 2
 move_speed = 178.0
 detection_range = 230.0
-leash_radius = 0.0
 patrol_radius = 74.0
 body_color = Color(0.24, 0.235, 0.205, 1)
 head_color = Color(0.125, 0.118, 0.105, 1)

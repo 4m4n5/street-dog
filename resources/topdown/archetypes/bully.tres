@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="RivalArchetype" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="RivalArchetype" format=3 uid="uid://cugoscewr8lmh"]
 
-[ext_resource type="Script" path="res://scripts/topdown/rival_archetype.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/topdown/bite_attack_profile.gd" id="2"]
+[ext_resource type="Script" uid="uid://7dd0fbydv6s" path="res://scripts/topdown/rival_archetype.gd" id="1"]
+[ext_resource type="Script" uid="uid://cb4a1x3rb46if" path="res://scripts/topdown/bite_attack_profile.gd" id="2"]
 
 [sub_resource type="Resource" id="Resource_bite_bully"]
 script = ExtResource("2")
@@ -17,7 +17,7 @@ knockback_target = 220.0
 self_knockback = 32.0
 hit_stop_sec = 0.03
 windup_telegraph_alpha = 0.82
-telegraph_color = Color(1, 0.18, 0.10, 0.82)
+telegraph_color = Color(1, 0.18, 0.1, 0.82)
 
 [resource]
 script = ExtResource("1")
@@ -31,5 +31,5 @@ leash_radius = 230.0
 patrol_radius = 54.0
 body_color = Color(0.13, 0.135, 0.125, 1)
 head_color = Color(0.055, 0.06, 0.055, 1)
-shoulder_scale = 1.20
+shoulder_scale = 1.2
 bite = SubResource("Resource_bite_bully")

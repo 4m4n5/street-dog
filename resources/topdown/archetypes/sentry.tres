@@ -1,20 +1,17 @@
-[gd_resource type="Resource" script_class="RivalArchetype" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="RivalArchetype" format=3 uid="uid://cxoeg4446d25e"]
 
-[ext_resource type="Script" path="res://scripts/topdown/rival_archetype.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/topdown/bite_attack_profile.gd" id="2"]
+[ext_resource type="Script" uid="uid://7dd0fbydv6s" path="res://scripts/topdown/rival_archetype.gd" id="1"]
+[ext_resource type="Script" uid="uid://cb4a1x3rb46if" path="res://scripts/topdown/bite_attack_profile.gd" id="2"]
 
 [sub_resource type="Resource" id="Resource_bite_sentry"]
 script = ExtResource("2")
 startup_frames = 5
-active_frames = 3
 recovery_frames = 14
 recovery_move_unlock = 10
-startup_speed_mult = 0.30
+startup_speed_mult = 0.3
 lunge_speed = 460.0
 hitbox_offset = 36.0
 hitbox_size = Vector2(50, 34)
-knockback_target = 150.0
-self_knockback = 24.0
 hit_stop_sec = 0.024
 windup_telegraph_alpha = 0.78
 telegraph_color = Color(1, 0.46, 0.12, 0.78)
@@ -24,12 +21,11 @@ script = ExtResource("1")
 id = &"sentry"
 display_name = "Sentry"
 ai_role = &"leash"
-max_hp = 2
 move_speed = 156.0
 detection_range = 250.0
 leash_radius = 156.0
 patrol_radius = 34.0
-body_color = Color(0.18, 0.20, 0.19, 1)
-head_color = Color(0.09, 0.105, 0.10, 1)
+body_color = Color(0.18, 0.2, 0.19, 1)
+head_color = Color(0.09, 0.105, 0.1, 1)
 shoulder_scale = 1.04
 bite = SubResource("Resource_bite_sentry")

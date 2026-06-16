@@ -4,20 +4,3 @@
 
 [resource]
 script = ExtResource("1")
-attack_startup_frames = 2
-attack_active_frames = 3
-attack_recovery_frames = 10
-attack_recovery_move_unlock = 6
-attack_lunge_speed = 540.0
-attack_knockback_target = 160.0
-attack_self_knockback = 48.0
-attack_hit_stop_sec = 0.055
-attack_buffer_frames = 8
-attack_coyote_frames = 6
-attack_recovery_buffer_frames = 4
-attack_windup_telegraph_alpha = 0.55
-attack_connect_flash_sec = 0.06
-attack_whiff_dust_enabled = true
-attack_camera_nudge_px = 3.0
-attack_camera_nudge_sec = 0.05
-rival_stagger_frames = 4

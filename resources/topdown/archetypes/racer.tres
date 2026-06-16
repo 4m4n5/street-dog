@@ -1,12 +1,11 @@
-[gd_resource type="Resource" script_class="RivalArchetype" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="RivalArchetype" format=3 uid="uid://dppmqxh00u5ki"]
 
-[ext_resource type="Script" path="res://scripts/topdown/rival_archetype.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/topdown/bite_attack_profile.gd" id="2"]
+[ext_resource type="Script" uid="uid://7dd0fbydv6s" path="res://scripts/topdown/rival_archetype.gd" id="1"]
+[ext_resource type="Script" uid="uid://cb4a1x3rb46if" path="res://scripts/topdown/bite_attack_profile.gd" id="2"]
 
 [sub_resource type="Resource" id="Resource_bite_racer"]
 script = ExtResource("2")
 startup_frames = 2
-active_frames = 3
 recovery_frames = 10
 recovery_move_unlock = 7
 startup_speed_mult = 0.45
@@ -24,7 +23,6 @@ script = ExtResource("1")
 id = &"racer"
 display_name = "Racer"
 ai_role = &"skirmish"
-max_hp = 2
 move_speed = 226.0
 detection_range = 270.0
 leash_radius = 245.0
