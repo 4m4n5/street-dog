@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="RivalArchetype" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/topdown/rival_archetype.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/topdown/bite_attack_profile.gd" id="2"]
+
+[sub_resource type="Resource" id="Resource_bite_bully"]
+script = ExtResource("2")
+startup_frames = 4
+active_frames = 4
+recovery_frames = 16
+recovery_move_unlock = 12
+startup_speed_mult = 0.28
+lunge_speed = 520.0
+hitbox_offset = 39.0
+hitbox_size = Vector2(56, 38)
+knockback_target = 220.0
+self_knockback = 32.0
+hit_stop_sec = 0.03
+windup_telegraph_alpha = 0.82
+telegraph_color = Color(1, 0.18, 0.10, 0.82)
+
+[resource]
+script = ExtResource("1")
+id = &"bully"
+display_name = "Bully"
+ai_role = &"bully"
+max_hp = 3
+move_speed = 166.0
+detection_range = 265.0
+leash_radius = 230.0
+patrol_radius = 54.0
+body_color = Color(0.13, 0.135, 0.125, 1)
+head_color = Color(0.055, 0.06, 0.055, 1)
+shoulder_scale = 1.20
+bite = SubResource("Resource_bite_bully")

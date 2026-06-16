@@ -65,14 +65,18 @@ class_name TopdownTuning
 @export var rival_separation_radius: float = 48.0
 @export var rival_separation_force: float = 80.0
 
+@export_group("Rival Archetypes")
+@export var rival_archetypes: Array[RivalArchetype] = []
+
 @export_group("Arena")
 @export var arena_width: float = 1280.0
 @export var arena_height: float = 720.0
 @export var footpath_color: Color = Color(0.155, 0.15, 0.135, 1.0)
 @export var wall_inset: float = 32.0
-@export var spawn_player: Vector2 = Vector2(150.0, 536.0)
-@export var spawn_rival_a: Vector2 = Vector2(600.0, 472.0)
-@export var spawn_rival_b: Vector2 = Vector2(1110.0, 296.0)
+@export var spawn_player: Vector2 = Vector2(148.0, 532.0)
+## Deprecated v2.1 aliases: A maps to Stray, B maps to Bully for one release.
+@export var spawn_rival_a: Vector2 = Vector2(592.0, 486.0)
+@export var spawn_rival_b: Vector2 = Vector2(1118.0, 306.0)
 
 
 @export_group("Arena Palette")
