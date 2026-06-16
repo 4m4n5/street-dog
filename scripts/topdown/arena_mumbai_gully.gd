@@ -61,30 +61,27 @@ func _build_room() -> void:
 	_clear_children(_dressing)
 
 	var size := Vector2(tuning.arena_width, tuning.arena_height)
-	var top_bottom_depth := 96.0
-	var left_right_depth := tuning.wall_inset
+	var top_depth := 88.0
+	var bottom_depth := 92.0
+	var side_depth := tuning.wall_inset
 	_add_rect(_surface, "RainDarkAsphalt", Vector2.ZERO, size, Color("#090B0D"), -20)
-	_add_floor_zone("SpawnFootholdWetPavers", Vector2(32.0, 112.0), Vector2(254.0, 512.0), Color("#272622"))
-	_add_floor_zone("MainWetLane", Vector2(314.0, 112.0), Vector2(638.0, 226.0), Color("#2E2C28"))
-	_add_floor_zone("ForkTJunction", Vector2(532.0, 250.0), Vector2(228.0, 194.0), Color("#302E29"))
-	_add_floor_zone("CourtyardWell", Vector2(318.0, 384.0), Vector2(522.0, 240.0), Color("#272622"))
-	_add_floor_zone("BESTAlcove", Vector2(980.0, 112.0), Vector2(268.0, 388.0), Color(0.13, 0.16, 0.145, 1.0))
-	_add_floor_zone("SideLoopLane", Vector2(812.0, 506.0), Vector2(436.0, 118.0), Color("#252827"))
+	_add_floor_zone("Node_NukkadChaiFoothold", Vector2(44.0, 448.0), Vector2(228.0, 180.0), Color("#28251F"))
+	_add_floor_zone("Lane_MainGullyWetRun", Vector2(270.0, 408.0), Vector2(206.0, 220.0), Color("#2E2B26"))
+	_add_floor_zone("Node_GullyFork", Vector2(418.0, 292.0), Vector2(204.0, 248.0), Color("#302D28"))
+	_add_floor_zone("Node_WadiChowk", Vector2(604.0, 300.0), Vector2(304.0, 224.0), Color("#292721"))
+	_add_floor_zone("Lane_ByLaneLaundryCut", Vector2(646.0, 540.0), Vector2(368.0, 88.0), Color("#242827"))
+	_add_floor_zone("Lane_WadiToBestMouth", Vector2(872.0, 360.0), Vector2(96.0, 128.0), Color("#2B2A24"))
+	_add_floor_zone("Node_BESTChowkBusStrip", Vector2(944.0, 244.0), Vector2(284.0, 236.0), Color("#202923"))
 
-	_add_boundary("BoundaryTop_ChawlWall", Vector2.ZERO, Vector2(tuning.arena_width, top_bottom_depth), tuning.gully_wall_color)
-	_add_boundary("BoundaryBottom_CorrugatedLip", Vector2(0.0, tuning.arena_height - top_bottom_depth), Vector2(tuning.arena_width, top_bottom_depth), tuning.corrugated_lip_color)
-	_add_boundary("BoundaryLeft_NarrowGully", Vector2.ZERO, Vector2(tuning.wall_inset, tuning.arena_height), tuning.gully_wall_color)
-	_add_boundary("BoundaryRight_NarrowGully", Vector2(tuning.arena_width - left_right_depth, 0.0), Vector2(left_right_depth, tuning.arena_height), tuning.gully_wall_color)
-
-	_add_internal_wall("SpawnPartition_North", Vector2(286.0, 96.0), Vector2(28.0, 286.0))
-	_add_internal_wall("SpawnPartition_South", Vector2(286.0, 444.0), Vector2(28.0, 180.0))
-	_add_internal_wall("ForkDivider_Upper", Vector2(532.0, 338.0), Vector2(228.0, 28.0))
-	_add_internal_wall("ForkDivider_Lower", Vector2(760.0, 366.0), Vector2(28.0, 146.0))
-	_add_internal_wall("BusPartition_North", Vector2(952.0, 96.0), Vector2(28.0, 188.0))
-	_add_internal_wall("BusPartition_South", Vector2(952.0, 500.0), Vector2(28.0, 124.0))
-	_add_internal_wall("LoopIsland_ScooterWall", Vector2(610.0, 488.0), Vector2(156.0, 28.0))
+	_add_boundary("BoundaryTop_ChawlSkyline", Vector2.ZERO, Vector2(tuning.arena_width, top_depth), tuning.gully_wall_color)
+	_add_boundary("BoundaryBottom_CorrugatedShopEdge", Vector2(0.0, tuning.arena_height - bottom_depth), Vector2(tuning.arena_width, bottom_depth), tuning.corrugated_lip_color)
+	_add_boundary("BoundaryLeft_Shopbacks", Vector2.ZERO, Vector2(side_depth, tuning.arena_height), tuning.gully_wall_color)
+	_add_boundary("BoundaryRight_BusDepotEdge", Vector2(tuning.arena_width - side_depth, 0.0), Vector2(side_depth, tuning.arena_height), tuning.gully_wall_color)
+	_add_building_footprints()
 
 	_add_chawl_wall()
+	_add_chawl_stairs()
+	_add_wire_drip_elements()
 	_add_puddles()
 	_add_best_stop_stripe()
 	_add_corrugated_lip()
@@ -93,24 +90,24 @@ func _build_room() -> void:
 
 func _build_props() -> void:
 	_clear_children(_props)
-	_spawn_prop(PROP_CHAI_COUNTER_SCENE, "ChaiStallCounter", Vector2(154.0, 482.0))
-	_spawn_prop(PROP_PLASTIC_CHAIR_SCENE, "PlasticChair_MainLane", Vector2(438.0, 278.0), -0.12)
-	_spawn_prop(PROP_GUNNY_SACKS_SCENE, "GunnySacks_Courtyard", Vector2(700.0, 544.0), 0.04)
-	_spawn_prop(PROP_SCOOTER_SCENE, "ParkedScooter_Courtyard", Vector2(526.0, 548.0), -0.08)
-	_spawn_prop(PROP_BEST_BENCH_SCENE, "BESTBench_BusStop", Vector2(1102.0, 174.0))
-	_spawn_prop(PROP_CARDBOARD_BOX_SCENE, "CardboardBox_BusStop", Vector2(1166.0, 444.0), 0.15)
-	_spawn_prop(PROP_CARDBOARD_BOX_SCENE, "CardboardBox_LowerLoop", Vector2(996.0, 572.0), -0.10)
-	_spawn_prop(PROP_LAUNDRY_LINE_SCENE, "LaundryLinePoles_Loggia", Vector2(832.0, 90.0), 0.03)
+	_spawn_prop(PROP_CHAI_COUNTER_SCENE, "ChaiStallCounter_Nukkad", Vector2(158.0, 496.0))
+	_spawn_prop(PROP_PLASTIC_CHAIR_SCENE, "PlasticChair_MainGullyMouth", Vector2(354.0, 458.0), -0.16)
+	_spawn_prop(PROP_GUNNY_SACKS_SCENE, "GunnySacks_ForkShoulder", Vector2(456.0, 372.0), 0.08)
+	_spawn_prop(PROP_SCOOTER_SCENE, "ParkedScooter_WadiEdge", Vector2(760.0, 448.0), -0.10)
+	_spawn_prop(PROP_BEST_BENCH_SCENE, "BESTBench_ChowkStrip", Vector2(1102.0, 292.0))
+	_spawn_prop(PROP_CARDBOARD_BOX_SCENE, "CardboardBox_BESTCurb", Vector2(1018.0, 430.0), 0.15)
+	_spawn_prop(PROP_CARDBOARD_BOX_SCENE, "CardboardBox_ByLaneRear", Vector2(880.0, 586.0), -0.10)
+	_spawn_prop(PROP_LAUNDRY_LINE_SCENE, "LaundryLinePoles_ByLaneMouth", Vector2(710.0, 548.0), 0.03)
 
 
 func _position_markers() -> void:
 	_set_marker_position("Spawn", tuning.spawn_player)
-	_set_marker_position("RivalSpawn_Stray", Vector2(592.0, 486.0))
-	_set_marker_position("RivalSpawn_Sentry", Vector2(704.0, 286.0))
-	_set_marker_position("RivalSpawn_Racer", Vector2(1084.0, 562.0))
-	_set_marker_position("RivalSpawn_Bully", Vector2(1118.0, 306.0))
-	_set_marker_position("RivalSpawn_A", tuning.spawn_rival_a)
-	_set_marker_position("RivalSpawn_B", tuning.spawn_rival_b)
+	_set_marker_position("RivalSpawn_Stray", Vector2(704.0, 404.0))
+	_set_marker_position("RivalSpawn_Sentry", Vector2(558.0, 334.0))
+	_set_marker_position("RivalSpawn_Racer", Vector2(846.0, 586.0))
+	_set_marker_position("RivalSpawn_Bully", Vector2(1092.0, 348.0))
+	_set_marker_position("RivalSpawn_A", Vector2(704.0, 404.0))
+	_set_marker_position("RivalSpawn_B", Vector2(1092.0, 348.0))
 
 
 func _spawn_rivals() -> void:
@@ -176,15 +173,15 @@ func _marker_name_for_archetype(archetype_id: StringName) -> String:
 func _fallback_spawn_for_archetype(archetype_id: StringName) -> Vector2:
 	match archetype_id:
 		&"stray":
-			return Vector2(592.0, 486.0)
+			return Vector2(704.0, 404.0)
 		&"sentry":
-			return Vector2(704.0, 286.0)
+			return Vector2(558.0, 334.0)
 		&"racer":
-			return Vector2(1084.0, 562.0)
+			return Vector2(846.0, 586.0)
 		&"bully":
-			return Vector2(1118.0, 306.0)
+			return Vector2(1092.0, 348.0)
 		_:
-			return Vector2(592.0, 486.0)
+			return Vector2(704.0, 404.0)
 
 
 func _spawn_prop(scene: PackedScene, node_name: String, spawn_position: Vector2, rotation_radians: float = 0.0) -> Node2D:
@@ -215,54 +212,98 @@ func _add_boundary(body_name: String, position: Vector2, size: Vector2, color: C
 	return body
 
 
-func _add_internal_wall(body_name: String, position: Vector2, size: Vector2) -> StaticBody2D:
-	var wall := _add_boundary(body_name, position, size, Color("#11171A"))
-	_add_rect(wall, "WetEdge", Vector2(0.0, size.y - 4.0), Vector2(size.x, 4.0), Color(0.95, 0.68, 0.34, 0.12), 1)
-	return wall
-
-
 func _add_floor_zone(node_name: String, position: Vector2, size: Vector2, color: Color) -> void:
 	_add_rect(_surface, node_name, position, size, color, -12)
 	_add_paver_joints(_surface, position, size)
 
 
+func _add_building_footprints() -> void:
+	_add_footprint("Footprint_WestShopBlock_ChaiShoulder", Vector2(32.0, 88.0), Vector2(238.0, 356.0), Color("#12191B"))
+	_add_footprint("Footprint_NorthChawl_LongFacade", Vector2(470.0, 88.0), Vector2(338.0, 192.0), tuning.chawl_wall_color)
+	_add_footprint("Footprint_EastChawl_BusBack", Vector2(1014.0, 88.0), Vector2(234.0, 142.0), Color("#111A18"))
+	_add_footprint("Footprint_ForkCornerClinic", Vector2(500.0, 432.0), Vector2(92.0, 108.0), Color("#141B1C"))
+	_add_footprint("Footprint_WadiSouthWorkshop", Vector2(438.0, 540.0), Vector2(208.0, 88.0), Color("#111719"))
+	_add_footprint("Footprint_BESTDepotKiosk", Vector2(1128.0, 474.0), Vector2(120.0, 154.0), Color("#0F1717"))
+
+
+func _add_footprint(body_name: String, position: Vector2, size: Vector2, color: Color) -> StaticBody2D:
+	var body := _add_boundary(body_name, position, size, color)
+	_add_rect(body, "OpenSkyShadow", Vector2.ZERO, Vector2(size.x, 8.0), Color(0.0, 0.0, 0.0, 0.28), 1)
+	_add_rect(body, "WetFacadeLip", Vector2(0.0, size.y - 5.0), Vector2(size.x, 5.0), Color(0.95, 0.68, 0.34, 0.12), 1)
+	return body
+
+
 func _add_chawl_wall() -> void:
 	var wall_margin := 36.0
 	var wall_width := tuning.arena_width - wall_margin * 2.0
-	_add_rect(_dressing, "ChawlWall_WetPlaster", Vector2(wall_margin, 20.0), Vector2(wall_width, 70.0), tuning.chawl_wall_color, 12)
-	_add_line(_dressing, "ChawlWire_Main", PackedVector2Array([
-		Vector2(54.0, 34.0),
-		Vector2(338.0, 42.0),
-		Vector2(662.0, 30.0),
-		Vector2(1034.0, 44.0),
-		Vector2(1232.0, 36.0),
-	]), 2.0, Color(0.025, 0.025, 0.025, 0.92), 14)
+	_add_rect(_dressing, "ChawlFacade_WetPlaster", Vector2(wall_margin, 18.0), Vector2(wall_width, 66.0), tuning.chawl_wall_color, 12)
+	_add_rect(_dressing, "ChawlLoggia_DarkRail", Vector2(470.0, 82.0), Vector2(338.0, 10.0), Color(0.035, 0.035, 0.032, 0.92), 15)
 	var window_count := maxi(10, int((wall_width - 70.0) / 88.0))
 	for i in range(window_count):
 		var x := 64.0 + float(i) * 88.0
 		var lit := i % 3 == 1
 		var color := Color(0.9, 0.6, 0.28, 0.66) if lit else Color(0.055, 0.06, 0.065, 1.0)
 		_add_rect(_dressing, "ChawlWindow_%02d" % i, Vector2(x, 40.0), Vector2(32.0, 20.0), color, 13)
-		_add_rect(_dressing, "WindowDrip_%02d" % i, Vector2(x - 2.0, 64.0), Vector2(36.0, 4.0), Color(0.05, 0.055, 0.06, 0.75), 13)
+		_add_rect(_dressing, "WindowDripLip_%02d" % i, Vector2(x - 2.0, 64.0), Vector2(36.0, 4.0), Color(0.05, 0.055, 0.06, 0.75), 13)
+
+
+func _add_chawl_stairs() -> void:
+	_add_rect(_dressing, "ChawlLoggiaStair_Landing", Vector2(816.0, 94.0), Vector2(64.0, 18.0), Color(0.13, 0.12, 0.10, 0.92), 12)
+	for i in range(6):
+		var step_position := Vector2(820.0 + float(i) * 8.0, 112.0 + float(i) * 12.0)
+		var step_size := Vector2(64.0 - float(i) * 6.0, 8.0)
+		_add_rect(_dressing, "ChawlLoggiaStair_Step_%02d" % i, step_position, step_size, Color(0.15, 0.14, 0.12, 0.88), 12)
+
+	var ring_color := Color(0.11, 0.10, 0.085, 0.78)
+	_add_rect(_dressing, "WadiRingStep_North", Vector2(622.0, 300.0), Vector2(240.0, 10.0), ring_color, 2)
+	_add_rect(_dressing, "WadiRingStep_South", Vector2(630.0, 510.0), Vector2(218.0, 10.0), ring_color, 2)
+	_add_rect(_dressing, "WadiRingStep_West", Vector2(604.0, 330.0), Vector2(10.0, 152.0), ring_color, 2)
+	_add_rect(_dressing, "WadiRingStep_East", Vector2(890.0, 326.0), Vector2(10.0, 168.0), ring_color, 2)
+
+
+func _add_wire_drip_elements() -> void:
+	_add_line(_dressing, "WireTangle_NukkadToFork", PackedVector2Array([
+		Vector2(222.0, 122.0),
+		Vector2(316.0, 168.0),
+		Vector2(424.0, 150.0),
+		Vector2(536.0, 188.0),
+	]), 2.0, Color(0.025, 0.025, 0.025, 0.92), 14)
+	_add_line(_dressing, "WireTangle_WadiLaundry", PackedVector2Array([
+		Vector2(610.0, 286.0),
+		Vector2(698.0, 264.0),
+		Vector2(792.0, 282.0),
+		Vector2(906.0, 256.0),
+	]), 2.0, Color(0.025, 0.025, 0.025, 0.9), 14)
+	_add_line(_dressing, "WireTangle_BESTChowk", PackedVector2Array([
+		Vector2(1004.0, 234.0),
+		Vector2(1086.0, 214.0),
+		Vector2(1180.0, 236.0),
+		Vector2(1238.0, 220.0),
+	]), 2.0, Color(0.025, 0.025, 0.025, 0.88), 14)
+
+	var drip_color := Color(0.42, 0.52, 0.58, 0.28)
+	_add_line(_dressing, "WireDrip_Nukkad_00", PackedVector2Array([Vector2(338.0, 168.0), Vector2(338.0, 196.0)]), 1.0, drip_color, 13)
+	_add_line(_dressing, "WireDrip_Wadi_00", PackedVector2Array([Vector2(744.0, 274.0), Vector2(744.0, 318.0)]), 1.0, drip_color, 13)
+	_add_line(_dressing, "WireDrip_BEST_00", PackedVector2Array([Vector2(1136.0, 226.0), Vector2(1136.0, 264.0)]), 1.0, drip_color, 13)
 
 
 func _add_puddles() -> void:
-	_add_rect(_dressing, "Puddle_MainLaneBlueGrey", Vector2(504.0, 248.0), Vector2(164.0, 42.0), tuning.puddle_color, -3)
-	_add_rect(_dressing, "Puddle_MainLaneSheen", Vector2(530.0, 258.0), Vector2(96.0, 7.0), Color(0.5, 0.62, 0.72, 0.24), -2)
-	_add_rect(_dressing, "Puddle_CourtyardWide", Vector2(768.0, 474.0), Vector2(132.0, 36.0), Color(0.08, 0.14, 0.19, 0.5), -3)
-	_add_rect(_dressing, "Puddle_BusStopCurb", Vector2(1064.0, 226.0), Vector2(96.0, 28.0), Color(0.08, 0.14, 0.19, 0.48), -3)
+	_add_rect(_dressing, "Puddle_MainGullyBlueGrey", Vector2(330.0, 504.0), Vector2(114.0, 34.0), tuning.puddle_color, -3)
+	_add_rect(_dressing, "Puddle_MainGullySheen", Vector2(350.0, 512.0), Vector2(74.0, 6.0), Color(0.5, 0.62, 0.72, 0.24), -2)
+	_add_rect(_dressing, "Puddle_WadiWide", Vector2(750.0, 476.0), Vector2(128.0, 34.0), Color(0.08, 0.14, 0.19, 0.5), -3)
+	_add_rect(_dressing, "Puddle_BESTCurb", Vector2(1028.0, 390.0), Vector2(96.0, 28.0), Color(0.08, 0.14, 0.19, 0.48), -3)
 	_add_line(_dressing, "PuddleCrack", PackedVector2Array([
-		Vector2(704.0, 508.0),
-		Vector2(678.0, 518.0),
-		Vector2(654.0, 512.0),
-		Vector2(626.0, 528.0),
+		Vector2(692.0, 506.0),
+		Vector2(670.0, 518.0),
+		Vector2(642.0, 512.0),
+		Vector2(616.0, 528.0),
 	]), 2.0, Color(0.18, 0.17, 0.16, 0.65), -1)
 
 
 func _add_best_stop_stripe() -> void:
-	var stop_x := 1056.0
-	_add_rect(_dressing, "BESTStop_GreenStripe", Vector2(stop_x, 118.0), Vector2(136.0, 16.0), tuning.best_green_color, 3)
-	_add_rect(_dressing, "BESTStop_AmberTrim", Vector2(stop_x, 134.0), Vector2(136.0, 4.0), Color(0.88, 0.68, 0.28, 0.88), 4)
+	var stop_x := 1016.0
+	_add_rect(_dressing, "BESTStop_GreenStripe", Vector2(stop_x, 250.0), Vector2(180.0, 18.0), tuning.best_green_color, 3)
+	_add_rect(_dressing, "BESTStop_AmberTrim", Vector2(stop_x, 268.0), Vector2(180.0, 4.0), Color(0.88, 0.68, 0.28, 0.88), 4)
 
 
 func _add_corrugated_lip() -> void:
@@ -277,10 +318,10 @@ func _add_corrugated_lip() -> void:
 
 func _add_light_slices() -> void:
 	var pools := [
-		Rect2(118.0, 118.0, 78.0, 396.0),
-		Rect2(404.0, 128.0, 88.0, 430.0),
-		Rect2(710.0, 118.0, 78.0, 430.0),
-		Rect2(1082.0, 128.0, 72.0, 370.0),
+		Rect2(112.0, 448.0, 88.0, 164.0),
+		Rect2(336.0, 398.0, 82.0, 214.0),
+		Rect2(676.0, 308.0, 92.0, 208.0),
+		Rect2(1074.0, 252.0, 78.0, 224.0),
 	]
 	for i in range(pools.size()):
 		var rect := pools[i] as Rect2
